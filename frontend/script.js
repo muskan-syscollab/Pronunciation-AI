@@ -74,7 +74,7 @@ analyzeBtn.addEventListener("click", async () => {
 
   try {
     const response = await fetch(
-      "https://pronunciation-ai-backend.onrender.com/upload-audio",
+      "https://spirited-gentleness-production-ccc4.up.railway.app/upload-audio",
       {
         method: "POST",
         body: formData,
