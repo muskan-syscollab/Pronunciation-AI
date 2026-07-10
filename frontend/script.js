@@ -80,7 +80,6 @@ analyzeBtn.addEventListener("click", async () => {
         body: formData,
       },
     );
-
     const data = await response.json();
 
     loading.style.display = "none";
