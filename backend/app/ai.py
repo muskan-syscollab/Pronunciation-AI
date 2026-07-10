@@ -1,18 +1,15 @@
 import whisper
 
-# Load Whisper model once when the server starts
-model = whisper.load_model("tiny")
+model = None
 
+def get_model():
+    global model
+    if model is None:
+        print("Loading Whisper model...")
+        model = whisper.load_model("tiny")
+    return model
 
-def transcribe_audio(audio_path: str):
-    """
-    Detects language and transcribes audio using Whisper.
-    """
-
-    # Transcribe with language detection
+def transcribe_audio(audio_path):
+    model = get_model()
     result = model.transcribe(audio_path)
-
-    return {
-        "language": result["language"],
-        "transcript": result["text"].strip()
-    }
+    return result
