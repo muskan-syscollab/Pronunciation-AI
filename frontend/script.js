@@ -73,10 +73,13 @@ analyzeBtn.addEventListener("click", async () => {
   analyzeBtn.disabled = true;
 
   try {
-    const response = await fetch("http://127.0.0.1:8000/upload-audio", {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      "https://pronunciation-ai-backend.onrender.com/upload-audio",
+      {
+        method: "POST",
+        body: formData,
+      },
+    );
 
     const data = await response.json();
 
