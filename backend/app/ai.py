@@ -1,7 +1,7 @@
 import whisper
 
 # Load Whisper model once when the server starts
-model = whisper.load_model("base")
+model = whisper.load_model("tiny")
 
 
 def transcribe_audio(audio_path: str):
