@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Pronunciation Evaluator</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-icon">
+
+                <i class="fa-solid fa-microphone-lines"></i>
+
+            </div>
+
+            <span class="badge">
+
+                AI Powered Pronunciation Analysis
+
+            </span>
+
+            <h1>
+
+                AI Pronunciation Evaluator
+
+            </h1>
+
+            <p>
+
+                Upload your English speech and receive an AI-generated pronunciation score,
+                detailed feedback, highlighted pronunciation mistakes, and personalized
+                suggestions to improve your speaking confidence.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- ================= Upload Section ================= -->
+
+    <section class="upload-section">
+
+        <div class="upload-card" id="dropArea">
+
+            <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+
+            <h2>
+
+                Upload Your Audio
+
+            </h2>
+
+            <p class="upload-text">
+
+                Drag & Drop your audio file here
+
+            </p>
+
+            <span class="or-text">
+
+                OR
+
+            </span>
+
+            <input
+                type="file"
+                id="audioFile"
+                accept=".mp3,.wav,.m4a"
+                hidden>
+
+            <label
+                for="audioFile"
+                class="upload-btn">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                Choose Audio File
+
+            </label>
+
+            <div class="file-details">
+
+                <h3>
+
+                    <i class="fa-solid fa-file-audio"></i>
+
+                    Selected File
+
+                </h3>
+
+                <p id="fileName">
+
+                    No file selected
+
+                </p>
+
+                <p id="fileSize"></p>
+
+                <p id="fileDuration"></p>
+
+            </div>
+
+            <div class="upload-note">
+
+    <div>✅ Audio Duration: 30–45 Seconds</div>
+
+</div>
+        </div>
+
+    </section>
+
+    <!-- ================= Audio Preview ================= -->
+
+    <section class="audio-preview">
+
+        <div class="preview-card">
+
+            <h2>
+
+                <i class="fa-solid fa-headphones"></i>
+
+                Audio Preview
+
+            </h2>
+
+            <audio
+                id="audioPlayer"
+                controls>
+
+            </audio>
+
+        </div>
+
+    </section>
+
+    <!-- ================= Analyze ================= -->
+
+    <section class="analyze-section">
+
+        <button id="analyzeBtn">
+
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+            Analyze Pronunciation
+
+        </button>
+
+    </section>
+        <!-- ================= LOADING ================= -->
+
+    <section id="loading" class="loading">
+
+        <div class="loader"></div>
+
+        <h2>Analyzing Pronunciation...</h2>
+
+        <p>
+
+            Please wait while our AI analyzes your speech.
+
+        </p>
+
+    </section>
+
+    <!-- ================= RESULTS ================= -->
+
+    <!-- ================= RESULTS ================= -->
+
+<section id="results" class="results">
+
+    <!-- Overall Score -->
+
+    <div class="card score-card">
+
+        <h2>
+            <i class="fa-solid fa-chart-line"></i>
+            Overall Score
+        </h2>
+
+        <div class="score-circle">
+            <span id="score">0</span>
+        </div>
+
+        <p class="score-text">
+            AI Evaluation
+        </p>
+
+    </div>
+
+    <!-- Transcript -->
+
+    <div class="card">
+
+        <h2>
+            <i class="fa-solid fa-file-lines"></i>
+            Transcript
+        </h2>
+
+        <p id="transcript">
+            Your transcript will appear here after AI analysis.
+        </p>
+
+    </div>
+
+    <!-- Corrected Transcript -->
+
+    <div class="card">
+
+        <h2>
+            <i class="fa-solid fa-file-pen"></i>
+            Corrected Transcript
+        </h2>
+
+        <p id="correctedTranscript">
+            Corrected transcript will appear here.
+        </p>
+
+    </div>
+
+    <!-- Pronunciation Mistakes -->
+
+    <div class="card">
+
+        <h2>
+            <i class="fa-solid fa-circle-exclamation"></i>
+            Pronunciation Mistakes
+        </h2>
+
+        <ul id="mistakes">
+            <li>No pronunciation mistakes detected.</li>
+        </ul>
+
+    </div>
+
+    <!-- Strengths -->
+
+    <div class="card">
+
+        <h2>
+            <i class="fa-solid fa-thumbs-up"></i>
+            Strengths
+        </h2>
+
+        <ul id="strengths">
+            <li>Strengths will appear here.</li>
+        </ul>
+
+    </div>
+
+    <!-- Suggestions -->
+
+    <div class="card">
+
+        <h2>
+            <i class="fa-solid fa-lightbulb"></i>
+            Suggestions
+        </h2>
+
+        <ul id="suggestions">
+            <li>Suggestions will appear here.</li>
+        </ul>
+
+    </div>
+
+    <!-- Detailed Scores -->
+
+    <div class="card">
+
+        <h2>
+            <i class="fa-solid fa-chart-column"></i>
+            Detailed Scores
+        </h2>
+
+        <p><strong>Pronunciation:</strong> <span id="pronunciationScore">0</span></p>
+
+        <p><strong>Fluency:</strong> <span id="fluencyScore">0</span></p>
+
+        <p><strong>Clarity:</strong> <span id="clarityScore">0</span></p>
+
+        <p><strong>Pace:</strong> <span id="pace">-</span></p>
+
+    </div>
+
+    <!-- Overall Feedback -->
+
+    <div class="card">
+
+        <h2>
+            <i class="fa-solid fa-comment-dots"></i>
+            Overall Feedback
+        </h2>
+
+        <p id="overallFeedback">
+            Feedback will appear here.
+        </p>
+
+    </div>
+
+    <!-- PDF Report -->
+
+    <div class="card">
+
+        <h2>
+            <i class="fa-solid fa-file-pdf"></i>
+            PDF Report
+        </h2>
+
+        <a
+            id="downloadPdf"
+            href="#"
+            target="_blank">
+
+            <button class="upload-btn">
+
+                <i class="fa-solid fa-download"></i>
+
+                Download Report
+
+            </button>
+
+        </a>
+
+    </div>
+
+</section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <h3>
+
+                AI Pronunciation Evaluator
+
+            </h3>
+
+            <p>
+
+                Built using HTML, CSS, JavaScript, FastAPI & AI
+
+            </p>
+
+            <p>
+
+                © 2026 All Rights Reserved
+
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
