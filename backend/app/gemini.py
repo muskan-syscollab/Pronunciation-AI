@@ -95,36 +95,36 @@ If small transcription corrections are needed, return the corrected version in "
         else:
             raise Exception("Timed out waiting for Gemini to process the file.")
 
-    # Generate pronunciation evaluation
+            # Generate pronunciation evaluation
         response = client.models.generate_content(
-           model="gemini-2.5-flash",
-           contents=[
-              uploaded_file,
-              prompt
-           ]
-       )
+            model="gemini-2.5-flash",
+            contents=[
+                uploaded_file,
+                prompt
+            ]
+        )
 
-    text = response.text.strip()
+        text = response.text.strip()
 
-      # Delete uploaded file from Gemini
-    client.files.delete(name=uploaded_file.name)
+        # Delete uploaded file from Gemini
+        client.files.delete(name=uploaded_file.name)
 
-      # Remove markdown if Gemini returns it
-    text = (
-    text.replace("```json", "")
-        .replace("```", "")
-        .strip()
-)
+        # Remove markdown if Gemini returns it
+        text = (
+            text.replace("```json", "")
+                .replace("```", "")
+                .strip()
+        )
 
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-         return {
-        "error": "Gemini returned invalid JSON.",
-        "raw_response": text
-    }
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            return {
+                "error": "Gemini returned invalid JSON.",
+                "raw_response": text
+            }
 
     except Exception as e:
         return {
-        "error": str(e)
-    }
+            "error": str(e)
+        }
